@@ -8,10 +8,6 @@ PyFlooder sends a configurable number of GET requests to a target using multiple
 
 ## Usage
 
-bash
-
-Copiar código
-
 `python httpflood.py <Target_Hostname> <Port> <Number_of_Processes> <Number_of_Requests_per_Process> <Delay_between_Attacks>`
 
 - `<Target_Hostname>`: The target URL (e.g., `http://example.com`).
@@ -24,39 +20,22 @@ Copiar código
 
 1. Basic attack with one process sending one request to a target on port 80:
     
-    bash
-    
-    Copiar código
-    
     `python httpflood.py http://example.com`
     
 2. Attack a target on port 8080 using 5 processes, each sending 10 requests:
     
-    bash
-    
-    Copiar código
-    
     `python httpflood.py http://example.com 8080 5 10`
     
 3. Attack a target on port 443 with 3 processes, each sending 20 requests, and a 0.1-second delay between starting each process:
-    
-    bash
-    
-    Copiar código
-    
+
     `python httpflood.py https://example.com 443 3 20 0.1`
     
-
 ## Requirements
 
 - Python 3.x
 - `httpx` library
 
 You can install the `httpx` library using:
-
-bash
-
-Copiar código
 
 `pip install httpx`
 
