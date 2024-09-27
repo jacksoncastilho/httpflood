@@ -15,7 +15,7 @@ host         = str(sys.argv[1])
 port         = 80   if num_args < 3 else int(sys.argv[2])
 num_process  = 1    if num_args < 4 else int(sys.argv[3])
 num_requests = 1    if num_args < 5 else int(sys.argv[4])
-delay        = 0.01 if num_args < 6 else int(sys.argv[5])
+delay        = 0.01 if num_args < 6 else float(sys.argv[5])
 
 # Perform the request
 def attack():
