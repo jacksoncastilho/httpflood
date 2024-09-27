@@ -8,7 +8,7 @@ PyFlooder sends a configurable number of GET requests to a target using multiple
 
 ## Usage
 
-`python httpflood.py <Target_Hostname> <Port> <Number_of_Processes> <Number_of_Requests_per_Process> <Delay_between_Attacks>`
+```python httpflood.py <Target_Hostname> <Port> <Number_of_Processes> <Number_of_Requests_per_Process> <Delay_between_Attacks>```
 
 - `<Target_Hostname>`: The target URL (e.g., `http://example.com`).
 - `<Port>`: The port to attack (default is `80` if not specified).
