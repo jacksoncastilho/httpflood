@@ -8,7 +8,9 @@ PyFlooder sends a configurable number of GET requests to a target using multiple
 
 ## Usage
 
-```python httpflood.py <Target_Hostname> <Port> <Number_of_Processes> <Number_of_Requests_per_Process> <Delay_between_Attacks>```
+```
+python httpflood.py <Target_Hostname> <Port> <Number_of_Processes> <Number_of_Requests_per_Process> <Delay_between_Attacks>
+```
 
 - `<Target_Hostname>`: The target URL (e.g., `http://example.com`).
 - `<Port>`: The port to attack (default is `80` if not specified).
@@ -20,15 +22,21 @@ PyFlooder sends a configurable number of GET requests to a target using multiple
 
 1. Basic attack with one process sending one request to a target on port 80:
     
-    `python httpflood.py http://example.com`
+```
+python httpflood.py http://example.com
+```
     
-2. Attack a target on port 8080 using 5 processes, each sending 10 requests:
+3. Attack a target on port 8080 using 5 processes, each sending 10 requests:
     
-    `python httpflood.py http://example.com 8080 5 10`
+```
+python httpflood.py http://example.com 8080 5 10
+```
     
-3. Attack a target on port 443 with 3 processes, each sending 20 requests, and a 0.1-second delay between starting each process:
+5. Attack a target on port 443 with 3 processes, each sending 20 requests, and a 0.1-second delay between starting each process:
 
-    `python httpflood.py https://example.com 443 3 20 0.1`
+```
+python httpflood.py https://example.com 443 3 20 0.1
+```
     
 ## Requirements
 
@@ -37,7 +45,9 @@ PyFlooder sends a configurable number of GET requests to a target using multiple
 
 You can install the `httpx` library using:
 
-`pip install httpx`
+```
+pip install httpx
+```
 
 ## Features
 
