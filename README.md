@@ -62,3 +62,7 @@ This script is intended for educational purposes only. Unauthorized use of this 
 ## Credits
 
 This project is based on the original work of [D4Vinci](https://github.com/D4Vinci/PyFlooder).
+
+## TODO
+
+- [ ] Refactor README.md
