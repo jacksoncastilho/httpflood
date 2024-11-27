@@ -1,3 +1,9 @@
+# To Do
+#[] Adicionar o argumento header
+#[] Adicionar o argumento content-type
+#[] json=data e data=data
+
+
 import sys
 import time
 import ssl
