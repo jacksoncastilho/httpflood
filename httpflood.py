@@ -1,8 +1,4 @@
-# To Do
-#[] Adicionar o argumento header
-#[] Adicionar o argumento content-type
-#[] json=data e data=data
-
+#!/bin/python3
 
 import sys
 import time
