@@ -18,6 +18,8 @@ parser.add_argument('-P', '--process', type=int, default=1, help='Number of proc
 parser.add_argument('-r', '--request', type=int, default=1, help='Number of requests per process')
 parser.add_argument('-d', '--delay', type=float, default=0.1, help='Delay between requests (default: 0.1 seconds)')
 parser.add_argument('-D', '--data', type=str, default="", help='Request body in JSON format (e.g., "{"param": 1}")')
+parser.add_argument('-f', '--format', type=str, default="data=data", help='Format of the request body (e.g., "data=data" for form-encoded or "json=data" for JSON).')
+parser.add_argument('-H', '--header', type=str, default="", help='Custom headers for the request, formatted as a JSON string (e.g., "Authorization": "Bearer token", "Content-Type": "application/json").')
 
 # Parse the arguments
 args = parser.parse_args()
