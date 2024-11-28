@@ -5,6 +5,7 @@ import time
 import ssl
 import httpx
 import argparse
+import json
 from multiprocessing import Process
 
 # Initialize the argument parser
@@ -14,12 +15,12 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-t', '--target', type=str, required=True, help='Target URL')
 parser.add_argument('-p', '--port', type=int, default=80, help='Port to be used (default: 80)')
 parser.add_argument('-m', '--method', type=str, default="GET", help='HTTP method to be used (e.g., GET, POST)')
-parser.add_argument('-P', '--process', type=int, default=1, help='Number of processes to spawn')
-parser.add_argument('-r', '--request', type=int, default=1, help='Number of requests per process')
+parser.add_argument('-P', '--process', type=int, default=1, help='Number of processes to spawn (default: 1)')
+parser.add_argument('-r', '--request', type=int, default=1, help='Number of requests per process (default: 1)')
 parser.add_argument('-d', '--delay', type=float, default=0.1, help='Delay between requests (default: 0.1 seconds)')
 parser.add_argument('-D', '--data', type=str, default="", help='Request body in JSON format (e.g., "{"param": 1}")')
-parser.add_argument('-f', '--format', type=str, default="data=data", help='Format of the request body (e.g., "data=data" for form-encoded or "json=data" for JSON).')
-parser.add_argument('-H', '--header', type=str, default="", help='Custom headers for the request, formatted as a JSON string (e.g., "Authorization": "Bearer token", "Content-Type": "application/json").')
+parser.add_argument('-f', '--format', type=str, default="data", help='Format of the request body (e.g., "data" for form-encoded or "json" for JSON)')
+parser.add_argument('-H', '--header', type=str, default="", help='Custom headers for the HTTP/2 request, formatted as a JSON string (e.g., \'{"authorization": "Bearer token", "content-type": "application/json"}\'). Headers must use lowercase keys to comply with HTTP/2 requirements.')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -59,8 +60,17 @@ def getRequest(client):
 
 # Function to perform a POST request
 def postRequest(client):
+    #headers = {"Content-Type": "application/x-www-form-urlencoded"}
+    headers = json.loads(args.header)
+
+    print(f"{headers}")
+
     try:
-        return client.post(host, json=data, timeout=None)
+        #return client.post(host, args.format, headers=args.header, timeout=None)
+        if args.format == "data":
+            return client.post(host, data=args.data, headers=headers, timeout=None)
+        else:
+            return client.post(host, json=args.data, headers=headers, timeout=None)
     except httpx.RequestError as exc:
         return f"[!] An error occurred while making POST request: {exc}"
 
