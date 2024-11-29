@@ -11,49 +11,32 @@ The script begins by reading user-defined command-line arguments like the target
 ## Usage
 
 ```
-python httpflood.py -t <TARGET_URL> -p <PORT> -m <METHOD> -P <NUM_PROCESSES> -r <NUM_REQUESTS> -d <DELAY> -D <DATA>
+./httpflood.py [-h] -t TARGET [-p PORT] [-m METHOD] [-P PROCESS] [-r REQUEST] [-d DELAY] [-D DATA] [-f FORMAT] [-H HEADER]
 ```
 
 ## Arguments
 
-- `-t` or `--target` (required): Target URL for the test. E.g., `http://example.com`
+- `-t` or `--target` (required): Target URL for the test (e.g., `http://example.com`)
 - `-p` or `--port`: Port to be used (default: `80`)
 - `-m` or `--method`: HTTP method to be used (GET or POST, default: `GET`)
 - `-P` or `--process`: Number of parallel processes to be created (default: `1`)
 - `-r` or `--request`: Number of requests per process (default: `1`)
 - `-d` or `--delay`: Interval between requests, in seconds (default: `0.1`)
-- `-D` or `--data`: Request body in JSON format for POST methods (e.g., `{"param": 1}`)
+- `-D` or `--data`: Request body (e.g., `{"param": 1, "param": "asd"}`)
+- `-f` or `--format`: Format of the request body (e.g., "data" for form-encoded or "json" for JSON)
+- `-H` or `--header`: Custom headers for the HTTP/2 request, formatted as a JSON string. Headers must use lowercase keys to comply with HTTP/2 requirements (e.g., '{"authorization": "Bearer token", "content-type": "application/json"}')
 
 ## Usage Examples
 
-1. Send 10 GET requests with 2 parallel processes:
+1. Send GET requests:
    ```bash
-   python script.py -t http://example.com -P 2 -r 5
+   ./httpflood.py -t "https://example.com/DVWA/vulnerabilities/csrf/?password_current=asd&password_new=asd&password_conf=asd&Change=Change&user_token=a89327a2b94992de6a3578e1f623ec74#" -p 443 -P 1 -r 1
    ```
 
-2. Send POST requests with a JSON payload:
+2. Send POST requests:
    ```bash
-   python script.py -t http://example.com/api -m POST -P 3 -r 2 -D '{"key": "value"}'
+   ./httpflood.py -t https://example.com/DVWA/login.php -p 443 --method POST -H "{\"content-type\": \"application/x-www-form-urlencoded\"}" --data "username=asd&password=asd&Login=Login&user_token=a822769d7aaa50e7a68aa3ad5f2698eb" -P 1 -r 1
    ```
-    
-## Requirements
-
-- Python 3.x
-- `httpx` and `argparse` libraries
-
-You can install the `httpx` library using:
-
-```
-pip install httpx
-```
-
-## Features
-
-- **Multiple HTTP Methods**: Supports both `GET` and `POST` requests for versatile testing.
-- **Parallel Processing**: Can spawn multiple processes to send high volumes of requests concurrently.
-- **Customizable Requests**: Allows setting the number of requests per process and adding delays, providing control over traffic patterns.
-- **JSON Payload Support**: Easily send JSON data with `POST` requests for testing API endpoints.
-- **HTTP/2 Support**: Utilizes HTTP/2 via `httpx` for efficient request handling.
 
 ## Credits
 
