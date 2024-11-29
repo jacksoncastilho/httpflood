@@ -20,7 +20,7 @@ parser.add_argument('-r', '--request', type=int, default=1, help='Number of requ
 parser.add_argument('-d', '--delay', type=float, default=0.1, help='Delay between requests (default: 0.1 seconds)')
 parser.add_argument('-D', '--data', type=str, default="", help='Request body in JSON format (e.g., "{"param": 1}")')
 parser.add_argument('-f', '--format', type=str, default="data", help='Format of the request body (e.g., "data" for form-encoded or "json" for JSON)')
-parser.add_argument('-H', '--header', type=str, default="", help='Custom headers for the HTTP/2 request, formatted as a JSON string (e.g., \'{"authorization": "Bearer token", "content-type": "application/json"}\'). Headers must use lowercase keys to comply with HTTP/2 requirements.')
+parser.add_argument('-H', '--header', type=str, default='{}', help='Custom headers for the HTTP/2 request, formatted as a JSON string (e.g., \'{"authorization": "Bearer token", "content-type": "application/json"}\'). Headers must use lowercase keys to comply with HTTP/2 requirements.')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -54,23 +54,17 @@ def attack():
 # Function to perform a GET request
 def getRequest(client):
     try:
-        return client.get(host, timeout=None)
+        return client.get(host, headers=json.loads(args.header), timeout=None)
     except httpx.RequestError as exc:
         return f"[!] An error occurred while making GET request: {exc}"
 
 # Function to perform a POST request
 def postRequest(client):
-    #headers = {"Content-Type": "application/x-www-form-urlencoded"}
-    headers = json.loads(args.header)
-
-    print(f"{headers}")
-
     try:
-        #return client.post(host, args.format, headers=args.header, timeout=None)
-        if args.format == "data":
-            return client.post(host, data=args.data, headers=headers, timeout=None)
-        else:
-            return client.post(host, json=args.data, headers=headers, timeout=None)
+        if args.format == 'data':
+            return client.post(host, data=args.data, headers=json.loads(args.header), timeout=None)
+        elif args.format == 'json':
+            return client.post(host, json=args.data, headers=json.loads(args.header), timeout=None)
     except httpx.RequestError as exc:
         return f"[!] An error occurred while making POST request: {exc}"
 
